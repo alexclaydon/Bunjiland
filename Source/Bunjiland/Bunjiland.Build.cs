@@ -8,6 +8,8 @@ public class Bunjiland : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "HeadMountedDisplay" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "HeadMountedDisplay", "ArticyRuntime" });
+
+		PrivateDependencyModuleNames.AddRange(new string[] { "Json" });
 	}
 }
