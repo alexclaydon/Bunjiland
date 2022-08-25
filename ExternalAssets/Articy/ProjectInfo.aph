@@ -1,0 +1,19 @@
+<ProjectInfo Version="1">
+  <Signature>36FB08E7DA8EFA945106CADC5CB8FB3A5D73E235BA95DB8F7C03EC341A7C48D7</Signature>
+  <Content>
+    <Project Guid="67d4db35-70a4-4e9d-b87b-12ebdf6d7a1c">
+      <DisplayName Value="Bunjiland"/>
+      <DetailName Value=""/>
+      <MainProjectGuid Value="390d7523-31ba-4ef6-9dca-e13df2f70ef8"/>
+      <IconType Value="0"/>
+      <IdProjectIcon Value="00000000-0000-0000-0000-000000000000"/>
+      <ScmProviderGuid Value="0745c2ee-abe3-451b-934e-7f597f56c0d7"/>
+      <ScmConfiguration Value=""/>
+      <CreationTimeStamp Value="637970096335354473"/>
+      <PartitionHash Value="7D9D1CCF9EF3941CA99D84F3590CD710A8D1D9CC07B0BE38E94A24C01AD71B0C"/>
+      <SaveFileVersion Value="55"/>
+      <ProjectType Value="0"/>
+      <IsOnlineProject Value="False"/>
+    </Project>
+  </Content>
+</ProjectInfo>
