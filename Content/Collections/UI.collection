@@ -7,3 +7,6 @@ ParentGuid:00000000-0000-0000-0000-000000000000
 /Game/Bunjiland/Systems/Player/UI/AC_ControllerUIDiscourseComponent.AC_ControllerUIDiscourseComponent
 /Game/Bunjiland/Systems/Player/UI/AC_ControllerUIInventoryComponent.AC_ControllerUIInventoryComponent
 /Game/Bunjiland/Systems/Player/UI/AC_ControllerUIMasterComponent.AC_ControllerUIMasterComponent
+/Game/Bunjiland/Systems/Player/UI/InGame/W_InGameOptionsMenu.W_InGameOptionsMenu
+/Game/Bunjiland/Systems/Player/UI/InGame/W_InGameScreen.W_InGameScreen
+/Game/Bunjiland/Systems/Player/UI/InGame/W_InGameTabs.W_InGameTabs
