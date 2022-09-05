@@ -5,3 +5,7 @@ ParentGuid:00000000-0000-0000-0000-000000000000
 
 /Game/Bunjiland/Systems/NPC/Non-Hostile/BP_NPC_New.BP_NPC_New
 /Game/Bunjiland/Systems/Player/UI/AC_ControllerUIDiscourseComponent.AC_ControllerUIDiscourseComponent
+/Game/Bunjiland/Systems/Player/UI/Dialogue/W_DialogueBranchButton.W_DialogueBranchButton
+/Game/Bunjiland/Systems/Player/UI/Dialogue/W_DialogueTextBlock.W_DialogueTextBlock
+/Game/Bunjiland/Systems/Player/UI/Dialogue/W_DialogueUIBase.W_DialogueUIBase
+/Game/Bunjiland/Systems/Player/UI/Dialogue/W_DialogueUITextWindow.W_DialogueUITextWindow
