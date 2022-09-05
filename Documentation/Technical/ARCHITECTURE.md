@@ -1,5 +1,8 @@
 # BunjilandNeo Architecture
 
+**NOTE THAT ONLY LIGHTING AND PLAYER START SHOULD BE ON THE PERSISTENT LEVEL; everything else - all objects, pickups, etc, should be on the map itself - this is because if you put them on the persistent level they will spawn in before the level geo is loaded and fall through space.
+
+
 I am using a modular architecture whereby to the extent possible, actor functionality is encapsulated within its own reusable actor component.
 
 The following is an account of the main architectural features, in principle kept constantly up-to-date.  For convenience, changes are usually committed at the same time as changes to related code.
