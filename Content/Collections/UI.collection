@@ -17,3 +17,8 @@ ParentGuid:00000000-0000-0000-0000-000000000000
 /Game/Bunjiland/Systems/Player/UI/InGame/W_InGameOptionsMenu.W_InGameOptionsMenu
 /Game/Bunjiland/Systems/Player/UI/InGame/W_InGameScreen.W_InGameScreen
 /Game/Bunjiland/Systems/Player/UI/InGame/W_InGameTabs.W_InGameTabs
+/Game/Bunjiland/Systems/Player/UI/Start/W_GameMenuBase.W_GameMenuBase
+/Game/Bunjiland/Systems/Player/UI/Start/W_SettingsMenu.W_SettingsMenu
+/Game/Bunjiland/Systems/Player/UI/Start/W_StartOptionsMenu.W_StartOptionsMenu
+/Game/Bunjiland/Systems/Player/UI/Start/W_StartScreen.W_StartScreen
+/Game/Bunjiland/Systems/Player/UI/Start/Wash_Hands.Wash_Hands
