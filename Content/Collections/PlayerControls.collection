@@ -3,3 +3,5 @@ Type:Static
 Guid:4896B2D2-9342-03D7-3148-E6BF9BFA9F67
 ParentGuid:00000000-0000-0000-0000-000000000000
 
+/Game/Bunjiland/Systems/Player/Controls/AC_PlayerCharacterCameraControlComponent.AC_PlayerCharacterCameraControlComponent
+/Game/Bunjiland/Systems/Player/Controls/AC_PlayerCharacterInputComponent.AC_PlayerCharacterInputComponent
