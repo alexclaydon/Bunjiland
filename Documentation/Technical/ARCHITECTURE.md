@@ -96,15 +96,35 @@ I did consider making use of Unreal Engine's `HUD` class, but it didn't really s
 
 When the game instance (`BP_BunjiGameInstance`) is initialised (`Event Init`), the first thing it does is initialise two variables on itself each holding a handler object - `PlayerSaveDataHandler` (instantiating an object from the `BP_PlayerSaveDataHandler` class) and `CurrentLevelSaveDataHandler` (instantiating an object from the `BP_Level01SaveDataHandler` class).  In doing so, it will look for saved player and environment data on disk; if any exists, the objects will be initialised with a reference to that data; if not, they are initialised empty.
 
-Note that this is merely an _initialisation_ - the state of the game isn't actually changed to match the saved data at this stage.  That is handled in a separate step, when the player accesses the save and load options on the in-game menu, or the load option on the start screen menu.  As such everything at this level of abstraction should be considered an implementation detail and should not require re-working even if the volume and types of data that constitue a "saved game" increase. As such, it should be able to be largely ignored going forward (for the purposes of thinking about, and making changes to, the savegame system).
+Note that this is merely an _initialisation_ - the state of the game isn't actually changed to match the saved data at this stage.  That is handled in a separate step, when the player accesses the save and load options on the in-game menu, or the load option on the start screen menu.  As such everything at this level of abstraction should be considered an implementation detail and should not require re-working even if the volume and types of data that constitue a "saved game" increases. As such, it should be able to be largely ignored going forward (for the purposes of thinking about, and making changes to, the savegame system).
 
-On the player clicking "Save Current", the button dispatches an event which is caught by the widget containing all of the button handling logic for the save/load system, `W_InGameScreen`.  That widget then gets a reference to the current game instance, then to the `PlayerSaveDataHandler` object, then calls the `SavePlayerData` method on that object, which (currently) checks player inventory contents and then overwrites the save on disk with data about such contents.  Note that, accordingly, if you are expanding what is saved in the savegame system (the main one I can think of at the moment is player transform), then it is by expanding what is included in this method that you can add new data.
+### Saving
 
-On the player clicking "Save Current", in a similiar manner `W_InGameScreen` contains the logic. That widget gets a reference to the current game instance, then to the `PlayerSaveDataHandler` object, then calls the `LoadPlayerData` method on that object, which overwrites the player's existing inventory with whatever was stored on file. Any increase in the volume or types of data stored on the `SavePlayerData` method discussed above would also require a corresponding implementation in this `LoadPlayerData` to put the game into the required state.
+On the player clicking "Save Current", the button dispatches an event which is caught by the widget containing all of the button handling logic for the save/load system, `W_InGameScreen`.  That widget then gets a reference to the current game instance, then to the `PlayerSaveDataHandler` object, then calls the `SavePlayerData` method on that object, which (currently) checks player inventory contents and then overwrites the save on disk with data about such contents.  It then loops through all actors of class `BP_Container_01` in the level and saves their individual contents by calling the `SaveContainerData` method (of the `BP_Level01SaveDataHandler` class) on each actor. Two notes:
+
+- Accordingly, if you are expanding what is saved in the savegame system (the main one I can think of at the moment is player transform), then it is by expanding what is included in this method that you can add new data.
+- In addition, each _new_ type of actor that needs to have its state saved (e.g., unlocked doors, etc) needs to have its own loop here too.
+
+### Loading
+
+On the player clicking "Load Most Recent", in a similiar manner `W_InGameScreen` contains the logic. That widget gets a reference to the current game instance, then to the `PlayerSaveDataHandler` object, then calls the `LoadPlayerData` method on that object, which overwrites the player's existing inventory with whatever was stored on file.  It the loops through all actors of class `BP_Container_01` in the level and loads their individual contents by calling the `LoadContainerData` method (of the `BP_Level01SaveDataHandler` class) on each actor. Notes:
+
+- Any increase in the volume or types of data stored on the `SavePlayerData` method discussed above would also require a corresponding implementation in this `LoadPlayerData` to put the game into the required state.
+- Each _new_ type of actor that has its state saved (e.g., unlocked doors, etc) needs to have matching logic here to restor that state when loading.
+
+### Comments
 
 Note that in sum this implements a "manual" save system, in that the game is only loaded and saved by the player.  In principle I think a better fit for this game would be constant auto-save and auto-reload on game boot, but implementing that shouldn't require architectural changes.  For now manual is fine for development testing.
 
 Note that if you do change the volume or types of data saved using the savegame system, you should probably manually delete whater save game files exist at `[Game]\Saved\Savegames\` to avoid quirky bugs in testing.
+
+Going through the process of building this system, it became apparent that I had some unacknowledged simplistic assumptions about how it would/should work.  I had initially considered a simple manual save/load system where data is only serialised or de-serialised on player instigation.  But it's not clear what benefit I'm adding to the design by adding manual save/load, except enabling save-scumming.  In reality, the more elegant system used in something like Animal Crossing is that save/load operations are wholesale concealed from the player.  As with the inventory system set out in the Ryan Laley video series on inventory, world state is saved piecemeal at intelligent times; for example, each time a container is closed or building is placed.  Or perhaps - for player transform - at some regular interval.  When booting the game the player then simply opts to either continue the previous game, or start a new game.  I like the elegance of this approach, and think I should refactor my system to be more like that.  On the other hand, manual save/load is quite useful during development.  Something to be considered in due course, doesn't need to be settled now.
+
+I have two more immediate concerns though:
+
+- I don't like that so much of this game critical logic is on the widget.  I feel like widgets should be handling visual UI logic and that's about it.  Anything else should be dispatched upwards.  Can I not move this logic to `BP_BunjiGameInstance`?
+- Alternatively (or additionally), could I refactor the savegame system into modular actor components?
+
 
 ## Dialogue System
 
