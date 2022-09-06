@@ -1,4 +1,4 @@
-# BunjilandNeo Architecture
+# Bunjiland Architecture
 
 **NOTE THAT ONLY LIGHTING AND PLAYER START SHOULD BE ON THE PERSISTENT LEVEL; everything else - all objects, pickups, etc, should be on the map itself - this is because if you put them on the persistent level they will spawn in before the level geo is loaded and fall through space.
 
@@ -17,7 +17,7 @@ Levels themselves are stored in `./Content/Bunjiland/Levels`.  Each level has it
 
 There is a custom game instance, `BP_BunjilandGameInstance`, which I am using principally as a global variable store - initially for things like debug environment variables (e.g., the `SkipIntroMenu` boolean allows you to skip the start screen and menu so you can get straight into the game for testing purposes).
 
-## Player-related
+## Player Controls
 
 ### BP_BunjilandPlayerCharacter
 
@@ -89,11 +89,24 @@ Note that the UI itself (as opposed to the logic that controls it) is implemente
 
 I did consider making use of Unreal Engine's `HUD` class, but it didn't really seem that useful to me, seeming to favour non-interactive UI's, for starters, but also having a weird API.  Instead, having encapsulated UI logic into a separate actor component that lives on the player allows, I hope, for better modularity and perhaps even re-use across projects or with multiplayer.
 
-### Inventory System
+## Inventory System
 
 
+## Savegame System
 
-## Articy: Draft Integration
+When the game instance (`BP_BunjiGameInstance`) is initialised (`Event Init`), the first thing it does is initialise two variables on itself each holding a handler object - `PlayerSaveDataHandler` (instantiating an object from the `BP_PlayerSaveDataHandler` class) and `CurrentLevelSaveDataHandler` (instantiating an object from the `BP_Level01SaveDataHandler` class).  In doing so, it will look for saved player and environment data on disk; if any exists, the objects will be initialised with a reference to that data; if not, they are initialised empty.
+
+Note that this is merely an _initialisation_ - the state of the game isn't actually changed to match the saved data at this stage.  That is handled in a separate step, when the player accesses the save and load options on the in-game menu, or the load option on the start screen menu.  As such everything at this level of abstraction should be considered an implementation detail and should not require re-working even if the volume and types of data that constitue a "saved game" increase. As such, it should be able to be largely ignored going forward (for the purposes of thinking about, and making changes to, the savegame system).
+
+On the player clicking "Save Current", the button dispatches an event which is caught by the widget containing all of the button handling logic for the save/load system, `W_InGameScreen`.  That widget then gets a reference to the current game instance, then to the `PlayerSaveDataHandler` object, then calls the `SavePlayerData` method on that object, which (currently) checks player inventory contents and then overwrites the save on disk with data about such contents.  Note that, accordingly, if you are expanding what is saved in the savegame system (the main one I can think of at the moment is player transform), then it is by expanding what is included in this method that you can add new data.
+
+On the player clicking "Save Current", in a similiar manner `W_InGameScreen` contains the logic. That widget gets a reference to the current game instance, then to the `PlayerSaveDataHandler` object, then calls the `LoadPlayerData` method on that object, which overwrites the player's existing inventory with whatever was stored on file. Any increase in the volume or types of data stored on the `SavePlayerData` method discussed above would also require a corresponding implementation in this `LoadPlayerData` to put the game into the required state.
+
+Note that in sum this implements a "manual" save system, in that the game is only loaded and saved by the player.  In principle I think a better fit for this game would be constant auto-save and auto-reload on game boot, but implementing that shouldn't require architectural changes.  For now manual is fine for development testing.
+
+Note that if you do change the volume or types of data saved using the savegame system, you should probably manually delete whater save game files exist at `[Game]\Saved\Savegames\` to avoid quirky bugs in testing.
+
+## Dialogue System
 
 Game dialogue is handled via integration with the Articy: Draft UE import plugin.  That plugin leaves all of the UI integration work un-done.  I have implemented it as follows.
 
