@@ -3,6 +3,7 @@ Type:Static
 Guid:A9D56EA3-464D-6CB8-66E6-089BB0525B9D
 ParentGuid:00000000-0000-0000-0000-000000000000
 
+/Game/Bunjiland/Core/BP_BunjiGameInstance.BP_BunjiGameInstance
 /Game/Bunjiland/Systems/Player/BP_BunjiPlayerController.BP_BunjiPlayerController
 /Game/Bunjiland/Systems/Player/UI/AC_ControllerUIDiscourseComponent.AC_ControllerUIDiscourseComponent
 /Game/Bunjiland/Systems/Player/UI/AC_ControllerUIInventoryComponent.AC_ControllerUIInventoryComponent
@@ -14,11 +15,11 @@ ParentGuid:00000000-0000-0000-0000-000000000000
 /Game/Bunjiland/Systems/Player/UI/InGame/Inventory/W_InventoryOverlay.W_InventoryOverlay
 /Game/Bunjiland/Systems/Player/UI/InGame/Inventory/W_InventoryOverlaySlot.W_InventoryOverlaySlot
 /Game/Bunjiland/Systems/Player/UI/InGame/Inventory/W_ItemTooltip.W_ItemTooltip
+/Game/Bunjiland/Systems/Player/UI/InGame/W_InGameBase.W_InGameBase
 /Game/Bunjiland/Systems/Player/UI/InGame/W_InGameOptionsMenu.W_InGameOptionsMenu
-/Game/Bunjiland/Systems/Player/UI/InGame/W_InGameScreen.W_InGameScreen
 /Game/Bunjiland/Systems/Player/UI/InGame/W_InGameTabs.W_InGameTabs
-/Game/Bunjiland/Systems/Player/UI/Start/W_GameMenuBase.W_GameMenuBase
 /Game/Bunjiland/Systems/Player/UI/Start/W_SettingsMenu.W_SettingsMenu
-/Game/Bunjiland/Systems/Player/UI/Start/W_StartOptionsMenu.W_StartOptionsMenu
 /Game/Bunjiland/Systems/Player/UI/Start/W_StartScreen.W_StartScreen
+/Game/Bunjiland/Systems/Player/UI/Start/W_StartScreenBase.W_StartScreenBase
+/Game/Bunjiland/Systems/Player/UI/Start/W_StartScreenOptionsMenu.W_StartScreenOptionsMenu
 /Game/Bunjiland/Systems/Player/UI/Start/Wash_Hands.Wash_Hands
