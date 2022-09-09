@@ -5,3 +5,4 @@ ParentGuid:00000000-0000-0000-0000-000000000000
 
 /Game/Bunjiland/Core/BI_InteractionInterface.BI_InteractionInterface
 /Game/Bunjiland/Systems/Player/Inventory/AC_InventoryHandler.AC_InventoryHandler
+/Game/Bunjiland/Systems/Shared/AC_LookAtHandler.AC_LookAtHandler
