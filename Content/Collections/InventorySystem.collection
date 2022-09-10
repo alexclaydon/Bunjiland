@@ -5,10 +5,10 @@ ParentGuid:00000000-0000-0000-0000-000000000000
 
 /Game/Bunjiland/Objects/Manufactured/Container01/BP_Container01.BP_Container01
 /Game/Bunjiland/Objects/Natural/Pickup01/BP_Pickup01.BP_Pickup01
+/Game/Bunjiland/Systems/Inventory/AC_InventoryHandler.AC_InventoryHandler
+/Game/Bunjiland/Systems/Inventory/ItemDataTable.ItemDataTable
+/Game/Bunjiland/Systems/Inventory/ItemStruct.ItemStruct
 /Game/Bunjiland/Systems/Player/AC_LookAtHandler.AC_LookAtHandler
-/Game/Bunjiland/Systems/Player/Inventory/AC_InventoryHandler.AC_InventoryHandler
-/Game/Bunjiland/Systems/Player/Inventory/ItemDataTable.ItemDataTable
-/Game/Bunjiland/Systems/Player/Inventory/ItemStruct.ItemStruct
 /Game/Bunjiland/Systems/Player/UI/AC_ControllerUIInventoryComponent.AC_ControllerUIInventoryComponent
 /Game/Bunjiland/Systems/Player/UI/Inventory/BP_DragDrop.BP_DragDrop
 /Game/Bunjiland/Systems/Player/UI/Inventory/W_DragWidget.W_DragWidget
