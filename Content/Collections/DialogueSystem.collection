@@ -3,6 +3,7 @@ Type:Static
 Guid:AA116A9C-004B-E9E3-A92E-B2890E5FC369
 ParentGuid:00000000-0000-0000-0000-000000000000
 
+/Game/Bunjiland/Systems/Dialogue/AC_FlowPlayerHandlerComponent.AC_FlowPlayerHandlerComponent
 /Game/Bunjiland/Systems/NPC/BP_NPC_New.BP_NPC_New
 /Game/Bunjiland/Systems/Player/AC_ControllerUIDiscourseComponent.AC_ControllerUIDiscourseComponent
 /Game/Bunjiland/Systems/Player/AC_LookAtHandler.AC_LookAtHandler
@@ -10,4 +11,3 @@ ParentGuid:00000000-0000-0000-0000-000000000000
 /Game/Bunjiland/Systems/Player/UI/Dialogue/W_DialogueTextBlock.W_DialogueTextBlock
 /Game/Bunjiland/Systems/Player/UI/Dialogue/W_DialogueUIBase.W_DialogueUIBase
 /Game/Bunjiland/Systems/Player/UI/Dialogue/W_DialogueUITextWindow.W_DialogueUITextWindow
-/Game/Bunjiland/Systems/Shared/AC_FlowPlayerHandlerComponent.AC_FlowPlayerHandlerComponent
