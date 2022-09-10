@@ -3,6 +3,7 @@ Type:Static
 Guid:BCB42BBB-C04F-824C-2AF7-079F3F14615A
 ParentGuid:00000000-0000-0000-0000-000000000000
 
+/Game/Bunjiland/Objects/Manufactured/Container01/BP_Container01.BP_Container01
 /Game/Bunjiland/Objects/Natural/Pickup01/BP_Pickup01.BP_Pickup01
 /Game/Bunjiland/Systems/Player/Inventory/AC_InventoryHandler.AC_InventoryHandler
 /Game/Bunjiland/Systems/Player/Inventory/ItemDataTable.ItemDataTable
