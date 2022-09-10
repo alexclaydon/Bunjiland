@@ -91,6 +91,23 @@ I did consider making use of Unreal Engine's `HUD` class, but it didn't really s
 
 ## Inventory System
 
+Any entity that has the ability to hold items must have an `AC_InventoryHandler` attached to it.  That includes the player and, for now, any chests or other in-level containers (currently only `BP_Container01`).  Each container must also have - and implement - the `BI_InteractionInterface` in order for player to interact with it.  I assume that in future, any NPCs (effectively containers) with whom you trade must also have and implement it.  Any pickup (currently there is only one, the prototypical `BP_Pickup01`) must also have and implement `BP_InteractionInterface` (for the avoidance of doubt, it does not require an `AC_InventoryHandler`).
+
+How do we know which container or pickup the player wants to interact with?
+
+The player character _also_ has an `AC_LookAtHandler` on it.  The function of this handler is to do a forward capsule trace by channel (using the special-purpose `Interactable` channel) from the player character, store any actors hit by such trace in a `LookAtActor` local variable, and finally to invoke on any such `LookAtActor` the `LookAt` interface method/message (through `BI_InteractionInterface`), to which it passes an object reference to the player character (known as `Observer` in this context).  All of this happens on an event tick basis and without any direct player input (other than putting the target within the capsule trace).
+
+Presently, the `LookAt` method/message implemented on both the container `BP_Container01` and pickup `BP_Pickup01` simply prints a debug string to the screen to let the player know what they're looking at.  But it could do more than that - for example, it could be used to make characters look at you when you're looking at them.
+
+How do we actually initiate an interaction with a container or pickup?
+
+The `AC_InventoryHandler` on the player character catches the `Interact` input event (currently bound to `F` on keyboard and `X` on Xbox gamepad). If no object reference to any actor implementing the `InteractWith` method/message (through `BI_InteractionInterface`) is currently stored on the `LookAtActor` local variable of the `AC_LookAtHandler` (which is located on the same player character, and therefore a sibling actor component), which is returned through a public function on `AC_LookAtHandler` called `GetCurrentLookAtActor`, nothing happens.  So if nothing relevant is hit by the capsule trace, basically, nothing happens.  If, on the other hand, there is such an actor, it calls the `InteractWith` message and passes an object reference to the player character (called the `Interactor` in this context).  What happens next depends on how the actor stored in `LookAtActor` implements `InteractWith`.
+
+In the case of the prototypical `BP_Pickup01` - not a container but a simple pickup - `InteractWith` simply calls the `AddToInventory` public method on the `AC_InventoryHandler` (of the player), then destroys itself.  From the player's perspective, this has the effect of "adding" the pickup item to the player's inventory.
+
+For `BP_Container01`, it takes a reference to each of its own `AC_InventoryHandler`, and the `AC_InventoryHandler` attached to the `Interactor` parameter passed to it in the message, and calls a public function on the player character's controller called `InitiatePlayerTargetInventoryExhange`, passing those references to it.  The player controller then handles the process of drawing `W_DualInventoryCanvas` to the screen, which is the inventory exchange UI, and also implements all of the inventory exchange logic on the widget itself. What happens from there in terms of the mechanics of actual inventory transfer isn't so complicated so I won't go into that here.
+
+In future I want to use the above system to re-implement the dialogue system.  It should be better than the "collision sphere overlap" approach I'm currently using).
 
 ## Savegame System
 
