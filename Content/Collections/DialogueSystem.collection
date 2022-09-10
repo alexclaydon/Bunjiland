@@ -3,7 +3,7 @@ Type:Static
 Guid:AA116A9C-004B-E9E3-A92E-B2890E5FC369
 ParentGuid:00000000-0000-0000-0000-000000000000
 
-/Game/Bunjiland/Systems/NPC/Non-Hostile/BP_NPC_New.BP_NPC_New
+/Game/Bunjiland/Systems/NPC/BP_NPC_New.BP_NPC_New
 /Game/Bunjiland/Systems/Player/AC_ControllerUIDiscourseComponent.AC_ControllerUIDiscourseComponent
 /Game/Bunjiland/Systems/Player/AC_LookAtHandler.AC_LookAtHandler
 /Game/Bunjiland/Systems/Player/UI/Dialogue/W_DialogueBranchButton.W_DialogueBranchButton
