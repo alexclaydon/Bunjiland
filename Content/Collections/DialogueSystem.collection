@@ -5,7 +5,7 @@ ParentGuid:00000000-0000-0000-0000-000000000000
 
 /Game/Bunjiland/Systems/Dialogue/AC_FlowPlayerHandlerComponent.AC_FlowPlayerHandlerComponent
 /Game/Bunjiland/Systems/NPC/BP_NPC_New.BP_NPC_New
-/Game/Bunjiland/Systems/Player/AC_ControllerUIDiscourseComponent.AC_ControllerUIDiscourseComponent
+/Game/Bunjiland/Systems/Player/AC_ControllerDiscourseComponent.AC_ControllerDiscourseComponent
 /Game/Bunjiland/Systems/Player/AC_LookAtHandler.AC_LookAtHandler
 /Game/Bunjiland/Systems/Player/UI/Dialogue/W_DialogueBranchButton.W_DialogueBranchButton
 /Game/Bunjiland/Systems/Player/UI/Dialogue/W_DialogueTextBlock.W_DialogueTextBlock
