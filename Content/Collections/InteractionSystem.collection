@@ -4,5 +4,5 @@ Guid:9358F428-9C49-E4F4-4ACD-348415DC7683
 ParentGuid:00000000-0000-0000-0000-000000000000
 
 /Game/Bunjiland/Core/BI_InteractionInterface.BI_InteractionInterface
+/Game/Bunjiland/Systems/Player/AC_LookAtHandler.AC_LookAtHandler
 /Game/Bunjiland/Systems/Player/Inventory/AC_InventoryHandler.AC_InventoryHandler
-/Game/Bunjiland/Systems/Shared/AC_LookAtHandler.AC_LookAtHandler
