@@ -80,3 +80,6 @@ Plugins/*/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+
+# Ignore all music files
+Content/Bunjiland/Audio/Music/*
