@@ -89,6 +89,19 @@ Note that the UI itself (as opposed to the logic that controls it) is implemente
 
 I did consider making use of Unreal Engine's `HUD` class, but it didn't really seem that useful to me, seeming to favour non-interactive UI's, for starters, but also having a weird API.  Instead, having encapsulated UI logic into a separate actor component that lives on the player allows, I hope, for better modularity and perhaps even re-use across projects or with multiplayer.
 
+### UI Controls
+
+UI widgets should in principle be instantiated by the player controller, which also then sets focus on the created widget.  It then stands back and lets that widget (or usually, if it is a series of nested widgets, the base widget) perform logic inherent to that interface, while remaining available to catch events dispatched upwards by such widgets, if necessary.
+
+Most base widgets (or just the widget, if there is only one) needs to ensure the following two things upon construction:
+
+- that keyboard focus (which bears also on controller focus) is set to the appropriate widget (usually a button, checkbox or other `bIsFocusable` element); and
+- that a "listen for input action" consumes any key press of the same key that instantiated the widget and uses it to destroy itself.
+
+The rest of the widget's logic should concern the showing and hiding of sub-widgets, the dispatch of events and the calling of public functions on other in-game objects (such as game instance - for example, to call the load and save functions on that object) as is appropriate.
+
+There are exceptions, of course: the start menu doesn't need to listen for any corresponding input event because it will by design only be removed from the screen automatically when a game is started or loaded; most HUD elements won't actually need keyboard focus as they're not, in principle, designed to be interacted with.
+
 ## Inventory System
 
 Any entity that has the ability to hold items must have an `AC_InventoryHandler` attached to it.  That includes the player and, for now, any chests or other in-level containers (currently only `BP_Container01`).  Each container must also have - and implement - the `BI_InteractionInterface` in order for player to interact with it.  I assume that in future, any NPCs (effectively containers) with whom you trade must also have and implement it.  Any pickup (currently there is only one, the prototypical `BP_Pickup01`) must also have and implement `BP_InteractionInterface` (for the avoidance of doubt, it does not require an `AC_InventoryHandler`).
