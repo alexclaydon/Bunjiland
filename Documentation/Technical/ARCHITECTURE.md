@@ -91,6 +91,10 @@ I did consider making use of Unreal Engine's `HUD` class, but it didn't really s
 
 ### UI Controls
 
+UPDATE THIS TO USE COMMON UI
+
+
+
 UI widgets should in principle be instantiated by the player controller, which also then sets focus on the created widget.  It then stands back and lets that widget (or usually, if it is a series of nested widgets, the base widget) perform logic inherent to that interface, while remaining available to catch events dispatched upwards by such widgets, if necessary.
 
 Most base widgets (or just the widget, if there is only one) needs to ensure the following two things upon construction:
@@ -121,6 +125,12 @@ In the case of the prototypical `BP_Pickup01` - not a container but a simple pic
 For `BP_Container01`, it takes a reference to each of its own `AC_InventoryHandler`, and the `AC_InventoryHandler` attached to the `Interactor` parameter passed to it in the message, and calls a public function on the player character's controller called `InitiatePlayerTargetInventoryExhange`, passing those references to it.  The player controller then handles the process of drawing `W_DualInventoryCanvas` to the screen, which is the inventory exchange UI, and also implements all of the inventory exchange logic on the widget itself. What happens from there in terms of the mechanics of actual inventory transfer isn't so complicated so I won't go into that here.
 
 In future I want to use the above system to re-implement the dialogue system.  It should be better than the "collision sphere overlap" approach I'm currently using).
+
+## Inventory Interaction System (Equipping and Consuming)
+
+......
+
+
 
 ## Savegame System
 
