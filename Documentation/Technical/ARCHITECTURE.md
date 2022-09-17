@@ -128,9 +128,15 @@ In future I want to use the above system to re-implement the dialogue system.  I
 
 ## Inventory Interaction System (Equipping and Consuming)
 
-......
+Items must have an `InteractionType`, which is specified on the `ItemDataTable` (in `Systems/Inventory`).  It can be any of consumable, equippable or inert (which types are set in the `ItemInteractionType` enum).
 
+On the player character, under the `Equipment` category, there is a variable called `EquippedInMainHand`, which takes an `ItemStruct`.  Additional equipment-related variables could be added over time - e.g., equipped in off-hand, worn on head, worn on body, etc.
 
+Also on the player character, there is a function called `InteractWithInventoryItem`, which takes an `ItemName`, returns the relevant item from the data table and then switches how that item is interacted with on double-click depending on that item's `InteractionType`.
+
+The `InteractWithInventoryItem` is a public interface and is called from `W_Inventory_Overlay` - which is a legacy UI element - as a simple bind to double-click on the item in question.  In time, `W_Inventory_Overlay` it should be called instead from whatever Common UI element replaces it.
+
+`Consumable` and `Inert` are not yet implemented and presently just print a debug string to the viewport, but in time the former would effect a reduction in the number of such items held in backpack, along with any status effects gained (e.g., additional health), and the latter would do nothing (e.g., quest items held in backpack).  By contrast, the item struct of any `Equippable` items will be assigned to the `EquippedInMainHand` variable as an `ItemStruct`.  Nothing furher is done with it at present, but I anticipate the a bunch of systems could be built off of testing what `ItemStruct` is equipped here - e.g., a fishing rod would enable fishing, a sword, fighting, etc.
 
 ## Savegame System
 
