@@ -7,7 +7,7 @@ ParentGuid:00000000-0000-0000-0000-000000000000
 /Game/Bunjiland/Systems/NPC/BP_NPC_New.BP_NPC_New
 /Game/Bunjiland/Systems/Player/AC_ControllerDiscourseComponent.AC_ControllerDiscourseComponent
 /Game/Bunjiland/Systems/Player/AC_LookAtHandler.AC_LookAtHandler
-/Game/Bunjiland/Systems/Player/UI/Dialogue/W_DialogueBranchButton.W_DialogueBranchButton
-/Game/Bunjiland/Systems/Player/UI/Dialogue/W_DialogueTextBlock.W_DialogueTextBlock
-/Game/Bunjiland/Systems/Player/UI/Dialogue/W_DialogueUIBase.W_DialogueUIBase
-/Game/Bunjiland/Systems/Player/UI/Dialogue/W_DialogueUITextWindow.W_DialogueUITextWindow
+/Game/Bunjiland/Systems/Player/LegacyUI/Dialogue/W_DialogueBranchButton.W_DialogueBranchButton
+/Game/Bunjiland/Systems/Player/LegacyUI/Dialogue/W_DialogueTextBlock.W_DialogueTextBlock
+/Game/Bunjiland/Systems/Player/LegacyUI/Dialogue/W_DialogueUIBase.W_DialogueUIBase
+/Game/Bunjiland/Systems/Player/LegacyUI/Dialogue/W_DialogueUITextWindow.W_DialogueUITextWindow
