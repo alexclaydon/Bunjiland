@@ -89,22 +89,22 @@ Note that the UI itself (as opposed to the logic that controls it) is implemente
 
 I did consider making use of Unreal Engine's `HUD` class, but it didn't really seem that useful to me, seeming to favour non-interactive UI's, for starters, but also having a weird API.  Instead, having encapsulated UI logic into a separate actor component that lives on the player allows, I hope, for better modularity and perhaps even re-use across projects or with multiplayer.
 
-### UI Controls
+## User Interface (UI)
 
-UPDATE THIS TO USE COMMON UI
+An earlier attempt at implementing Epic's Common UI framework failed, mainly for lack of official documentation.
 
+I'm now going ahead with implementing a popular UI plugin and asset pack from the marketplace instead - the "UI Nav" plugin. In order to cleanly implement this I'll need to first do the following steps in order to disable Common UI (without deleting the file assets) (which steps will need to be reversed when/if I implement Common UI):
 
+- [x] Open Edit > Project Settings > Engine > General Settings and set Game Viewport Client Class from CommonGameViewportClient to GameViewportClient; the restart the editor. 
+- [~] Disable the Common UI engine plugin.  UPDATE: Disabling this plugin led to a lot of errors in the message log, "failed to load outer" - they looked a bit scary so I re-enabled the Common UI plugin and they went away.  I'm going to leave it enabled for now as performance is not an issue (for now) and I do intend to move to Common UI eventually.
 
-UI widgets should in principle be instantiated by the player controller, which also then sets focus on the created widget.  It then stands back and lets that widget (or usually, if it is a series of nested widgets, the base widget) perform logic inherent to that interface, while remaining available to catch events dispatched upwards by such widgets, if necessary.
+Written documentation for the UI Navigation plugin (btw I hate that confusing name) is limited, and your best bet seems to be [this](https://youtube.com/playlist?list=PLAcWSem_HT4hT-3viMU2_z4WW94gKhgn0) video tutorial series from 2019.  I'll summarise the essential setup steps below, noting that these are appropriate to this project and that if you're greenfielding a project you should refer back to the videos directly:
 
-Most base widgets (or just the widget, if there is only one) needs to ensure the following two things upon construction:
+- [x] Go to `/Users/Shared/Epic Games/UE_5.0/Engine/Plugins/Marketplace/UINavigation/Content` and open `UINavInput.ini`; copy all of the action mappings (everything prepending `+ActionMappings`); then go to `/Users/alexclaydon/Unreal Projects/Bunjiland/Config` and open up `DefaultInput.ini`; paste all of the copied action mappings in to your existing list of mappings (as each of those prepend `Menu`, you shouldn't have any collisions but just check). 
+- [x] Re-parent the existing player controller to the `UINavController` class.
+- [x] Go to Project Settings -> Engine settings -> User Interface, and ensure that `Render Focus Rule` is set to `Navigation Only`.
+- [ ] Change the player controller to create the new UI Nav widgets instead of the old Common UI or Legacy widgets.
 
-- that keyboard focus (which bears also on controller focus) is set to the appropriate widget (usually a button, checkbox or other `bIsFocusable` element); and
-- that a "listen for input action" consumes any key press of the same key that instantiated the widget and uses it to destroy itself.
-
-The rest of the widget's logic should concern the showing and hiding of sub-widgets, the dispatch of events and the calling of public functions on other in-game objects (such as game instance - for example, to call the load and save functions on that object) as is appropriate.
-
-There are exceptions, of course: the start menu doesn't need to listen for any corresponding input event because it will by design only be removed from the screen automatically when a game is started or loaded; most HUD elements won't actually need keyboard focus as they're not, in principle, designed to be interacted with.
 
 ## Inventory System
 
