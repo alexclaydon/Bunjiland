@@ -100,10 +100,23 @@ I'm now going ahead with implementing a popular UI plugin and asset pack from th
 
 Written documentation for the UI Navigation plugin (btw I hate that confusing name) is limited, and your best bet seems to be [this](https://youtube.com/playlist?list=PLAcWSem_HT4hT-3viMU2_z4WW94gKhgn0) video tutorial series from 2019.  I'll summarise the essential setup steps below, noting that these are appropriate to this project and that if you're greenfielding a project you should refer back to the videos directly:
 
-- [x] Go to `/Users/Shared/Epic Games/UE_5.0/Engine/Plugins/Marketplace/UINavigation/Content` and open `UINavInput.ini`; copy all of the action mappings (everything prepending `+ActionMappings`); then go to `/Users/alexclaydon/Unreal Projects/Bunjiland/Config` and open up `DefaultInput.ini`; paste all of the copied action mappings in to your existing list of mappings (as each of those prepend `Menu`, you shouldn't have any collisions but just check). 
+- [x] Go to `/Users/Shared/Epic Games/UE_5.0/Engine/Plugins/Marketplace/UINavigation/Content` and open `UINavInput.ini`; copy all of the action mappings (everything prepending `+ActionMappings`); then go to `/Users/alexclaydon/Unreal Projects/Bunjiland/Config` and open up `DefaultInput.ini`; paste all of the copied action mappings in to your existing list of mappings (as each of those prepend `Menu`, you shouldn't have any collisions but just check). UPDATE: NO, YOU NEED TO COPY THE CORRESPONDING INPUTS FROM THE SAMPLE PACK SINCE YOU'RE USING THE PRE-MADE INTERFACE
 - [x] Re-parent the existing player controller to the `UINavController` class.
 - [x] Go to Project Settings -> Engine settings -> User Interface, and ensure that `Render Focus Rule` is set to `Navigation Only`.
 - [ ] Change the player controller to create the new UI Nav widgets instead of the old Common UI or Legacy widgets.
+
+UPDATE - HOW TO INTEGRATE THE "UI NAVIGATION SIMPLE PACK" ASSET PACK; following explanation is from the Discord server:
+
+In order to adapt the UINavSimplePack into your existing project, here's what you have to do:
+
+- [x] Copy the UINav Simple Pack's Content folder into your project
+- [x] Set your GameInstance class to UINavGameInstance (you can do this in the Maps and Modes section of your Project Settings). If you already have a GameInstance, either change its parent to UINavGameInstance (Blueprint class) or add its variables to your GameInstance class. The last option will likely require you to fix a few things in the widgets that communicate with the UINavGameInstance. <- I have re-parented my game instance class, which means I need to keep the new blueprint parent class around in the project (probably move it to the `Core` folder) and add a note somewhere here that my class inherits from this class now.
+- [x] Make sure the UINavController is being used (or another PC setup to use UINav). You can do this by setting the default Game Mode class to UINavGameMode or simply setting the correct PC in your existing Game Mode class.
+- [ ] Update the Settings_Game_HorizontalSensitivity and Settings_Game_VerticalSensitivity widgets to update your desired character's properties for sensitivity, if you plan on using a different Character class.
+- [ ] Update the Settings_Video_FOV widget to properly apply and save the desired FOV (it's currently done using a console command, which doesn't persist when game restarts)
+- [x] Update which input actions can be rebinded, through the InputCollection inside the InputSettings widget
+- [ ] Check whether the images for the buttons in the menus are being fetched correctly. If they're not you may need to update your UINavController's Data Tables.
+- [ ] Adapt the start game and load/save functionality to support the properties you need. You may need to mess with the SaveSlot widget.
 
 
 ## Inventory System
