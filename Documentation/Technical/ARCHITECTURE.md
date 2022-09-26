@@ -161,14 +161,18 @@ As such everything at this level of abstraction should be considered an implemen
 
 ### Saving
 
-On the player clicking "Save Current" from the in-game menu, the button dispatches an event which is caught by the widget containing all of the button handling logic for the save/load system, `W_InGameScreen`.  That widget then gets a reference to the current game instance, then to the `PlayerSaveDataHandler` object, then calls the `SavePlayerData` method on that object, which (currently) checks (i) player inventory contents and (ii) actor transform and then overwrites the save on disk with data about such contents.  It then loops through all actors of class `BP_Container_01` in the level and saves their individual contents by calling the `SaveContainerData` method (of the `BP_Level01SaveDataHandler` class) on each actor. Two notes:
+On the player clicking "Save Current" from the in-game menu, the button dispatches an event which is caught by the widget containing all of the button handling logic for the save/load system, `W_InGameBase`.  That widget then gets a reference to the current game instance, then to the `PlayerSaveDataHandler` object, then calls the `SavePlayerData` method on that object, which (currently) checks (i) player inventory contents and (ii) actor transform and then overwrites the save on disk with data about such contents.  It then loops through all actors of class `BP_Container_01` in the level and saves their individual contents by calling the `SaveContainerData` method (of the `BP_Level01SaveDataHandler` class) on each actor. Two notes:
 
 - Accordingly, if you are expanding what is saved in the savegame system (e.g., which items are equipped on the player, which dialogues have been completed using Articy), then it is by expanding what is included in this method (and stored as variables on the object instantiated from `BP_PlayerSaveDataHandler` or `BP_Level01SaveDataHandler`, as the case may be) that you can add new data.
 - In addition, each _new_ type of actor that needs to have its state saved (e.g., unlocked doors, etc) needs to have its own loop here too.
 
 ### Loading
 
-On the player clicking "Load Most Recent", in a similiar manner `W_InGameScreen` contains the logic. That widget gets a reference to the current game instance, then to the `PlayerSaveDataHandler` object, then calls the `LoadPlayerData` method on that object, which overwrites the player's existing inventory, transform, etc, with whatever was stored on file.  It the loops through all actors of class `BP_Container_01` in the level and loads their individual contents by calling the `LoadContainerData` method (of the `BP_Level01SaveDataHandler` class) on each actor. Notes:
+On the player clicking "Load Most Recent" _from the in-game menu_, in a similiar manner `W_InGameBase` contains the following logic:
+
+<img src="./Images/Screen Shot 2022-09-26 at 12.49.31.png" alt="isolated" width="400"/>
+
+That widget gets a reference to the current game instance, then to the `PlayerSaveDataHandler` object, then calls the `LoadPlayerData` method on that object, which overwrites the player's existing inventory, transform, etc, with whatever was stored on file.  It the loops through all actors of class `BP_Container_01` in the level and loads their individual contents by calling the `LoadContainerData` method (of the `BP_Level01SaveDataHandler` class) on each actor. Notes:
 
 - Any increase in the volume or types of data stored on the `SavePlayerData` method discussed above would also require a corresponding implementation in this `LoadPlayerData` to put the game into the required state.
 - Each _new_ type of actor that has its state saved (e.g., unlocked doors, etc) needs to have matching logic here to restore that state when loading.
