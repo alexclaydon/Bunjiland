@@ -33,13 +33,13 @@
 			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/4601ff4d12fc4ed1a7418e1585374a48"
 		},
 		{
-			"Name": "CommonUI",
-			"Enabled": true
-		},
-		{
 			"Name": "SkyCreatorPlugin",
 			"Enabled": true,
 			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/b9aa540db8c54f7d928c61d3b30cb955"
+		},
+		{
+			"Name": "CommonUI",
+			"Enabled": true
 		}
 	]
 }
