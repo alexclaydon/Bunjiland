@@ -119,7 +119,9 @@ In order to adapt the UINavSimplePack into your existing project, here's what yo
 - [ ] Adapt the start game and load/save functionality to support the properties you need. You may need to mess with the SaveSlot widget.
 
 
-## Inventory System
+## Inventory
+
+### Classes, relationships and interfaces
 
 Any entity that has the ability to hold items must have an `AC_InventoryHandler` attached to it.  That includes the player and, for now, any chests or other in-level containers (currently only `BP_Container01`).  Each container must also have - and implement - the `BI_InteractionInterface` in order for player to interact with it.  I assume that in future, any NPCs (effectively containers) with whom you trade must also have and implement it.  Any pickup (currently there is only one, the prototypical `BP_Pickup01`) must also have and implement `BP_InteractionInterface` (for the avoidance of doubt, it does not require an `AC_InventoryHandler`).
 
@@ -139,7 +141,32 @@ For `BP_Container01`, it takes a reference to each of its own `AC_InventoryHandl
 
 In future I want to use the above system to re-implement the dialogue system.  It should be better than the "collision sphere overlap" approach I'm currently using).
 
-## Inventory Interaction System (Equipping and Consuming)
+### Inventory Interface
+
+It is worth documenting here both the legacy arrangements, and the new UI Navigation arrangements, with comparison and contrast where relevant.
+
+The inventory interface is summoned in two contexts: when the player opens their own inventory (backpack) in-game, and when interacting with a container.
+
+#### Backpack
+
+Upon pressing the backpack open key (technically, the `PlayerOverlay` key), the player controller instantiates `W_InGameBase` and adds it to the viewport.
+
+This base widget controls its own removal, the showing and hiding of subwidgets (including by binding to events bubbling up from them), and - most importantly for our purposes - the population of the player's inventory.  (It also - not relevant for our purposes - handles things like save, load and quit game which - under the newer current UI Navigation Plugin-based system - are now handled in a separate `W_PauseMenu` widget.)
+
+The widget displaying the player's inventory is instantiated from `W_InventoryOverlay`, and is hard-nested on `W_InGameBase`, visible in the Design view.  To populate the widget with the player's inventory contents, the following has to occur:
+
+- `W_InGameBase` calls a public interface on `W_InventoryOverlay` called `Show Inventory`, passing it an object reference to the player character's `AC_InventoryHandler` (obtained by calling `Get Player Character`, etc.), along with a scree name for the inventory (simply hard-coded as "Backpack Contents").
+
+- The `ShowInventory` method stores those references as variables on self, then calls its own `Refresh` method.
+
+- `Refresh` gets a reference to the wrap box on self that will contain the actual inventory items, clears it, then proceeds to add an instance of `W_Inventory_Overlay_Slot` to the wrap box for each item in the player's `InventoryContent` variable, stored on the `AC_InventoryHandler` attached to the player character.
+
+#### Container Exchange
+
+
+
+
+### Equipping and Consuming
 
 Items must have an `InteractionType`, which is specified on the `ItemDataTable` (in `Systems/Inventory`).  It can be any of consumable, equippable or inert (which types are set in the `ItemInteractionType` enum).
 
