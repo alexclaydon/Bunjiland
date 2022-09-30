@@ -163,7 +163,7 @@ The widget displaying the player's inventory is instantiated from `W_InventoryOv
 
 #### Container Exchange
 
-
+`W_DualInventoryOverlay`
 
 
 ### Equipping and Consuming
